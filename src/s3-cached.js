@@ -11,30 +11,28 @@ module.exports = (options) => {
   assert(options.ttlDefault === undefined, 'Please use ttl instead.');
   defaults(options, {
     ttl: 600, // eventually we invalidate cached data
-    diskMaxSize: 469762048, // lambda allows for ~512mb in /tmp directory
-    diskTmpDirectory: '/tmp',
-    memoryLimit: 100,
+    diskMaxSize: 42949672960, // 40GB
+    diskTmpDirectory: 'C:\\cache',
     logger: null
   });
   const aws = AWS({ config: options.s3Options, logger: options.logger });
-  const memoryCache = cacheManager.caching({ store: 'memory', max: options.memoryLimit });
   const diskCache = cacheManager.caching({
     store: fsStore,
     maxsize: options.diskMaxSize,
     path: options.diskTmpDirectory,
     reviveBuffers: true,
-    preventfill: true // prevent cache re-init while testing
+    preventfill: false
   });
-  const multiCache = cacheManager.multiCaching([memoryCache, diskCache]);
-  const multiCacheWrap = (...args) => {
+
+  const diskCacheWrap = (...args) => {
     assert(get(args, [2, 'ttl']) !== 0, 'Use low ttl instead of zero (undefined behaviour).');
-    return multiCache.wrap(...args);
+    return diskCache.wrap(...args);
   };
 
   const getKeysCached = (prefix = '', {
     ttl = options.ttl,
     bucket = options.bucket
-  } = {}) => multiCacheWrap(prefix, async () => {
+  } = {}) => diskCacheWrap(prefix, async () => {
     assert(typeof prefix === 'string');
     assert(typeof ttl === 'number');
     assert(typeof bucket === 'string');
@@ -64,7 +62,7 @@ module.exports = (options) => {
     assert(typeof ttl === 'number');
     assert(typeof bucket === 'string');
     assert(Array.isArray(modifications));
-    return multiCacheWrap(key, () => [
+    return diskCacheWrap(key, () => [
       data => data.Body,
       ...modifications
     ].reduce(
