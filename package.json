@@ -1,5 +1,5 @@
 {
-  "name": "s3-disk-cached",
+  "name": "s3-cached-on-disk",
   "version": "2.1.3",
   "description": "S3 File Access Abstraction providing Disk Caching Layer. Fork of Lukas Siemon's https://github.com/simlu/s3-cached.git",
   "main": "lib/s3-cached.js",
@@ -16,13 +16,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/adanielyan/s3-disk-cached"
+    "url": "https://github.com/adanielyan/s3-cached-on-disk"
   },
   "keywords": [
     "s3",
     "aws",
     "cache",
-    "memory-cache",
     "disk-cache",
     "files",
     "storage",
@@ -33,13 +32,13 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/adanielyan/s3-disk-cached/blob/master/LICENSE"
+      "url": "https://github.com/adanielyan/s3-cached-on-disk/blob/master/LICENSE"
     }
   ],
   "bugs": {
-    "url": "https://github.com/adanielyan/s3-disk-cached/issues"
+    "url": "https://github.com/adanielyan/s3-cached-on-disk/issues"
   },
-  "homepage": "https://github.com/adanielyan/s3-disk-cached#readme",
+  "homepage": "https://github.com/adanielyan/s3-cached-on-disk#readme",
   "dependencies": {
     "aws-sdk-wrap": "1.1.1",
     "cache-manager": "2.9.0",
