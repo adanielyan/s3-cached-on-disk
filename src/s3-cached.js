@@ -12,7 +12,7 @@ module.exports = (options) => {
   defaults(options, {
     ttl: 600, // eventually we invalidate cached data
     diskMaxSize: 42949672960, // 40GB
-    diskTmpDirectory: 'C:\\cache',
+    diskTmpDirectory: /tmp',
     logger: null
   });
   const aws = AWS({ config: options.s3Options, logger: options.logger });
