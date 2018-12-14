@@ -1,6 +1,6 @@
 {
   "name": "s3-disk-cached",
-  "version": "0.0.0-development",
+  "version": "2.1.3",
   "description": "S3 File Access Abstraction providing Disk Caching Layer. Fork of Lukas Siemon's https://github.com/simlu/s3-cached.git",
   "main": "lib/s3-cached.js",
   "scripts": {
